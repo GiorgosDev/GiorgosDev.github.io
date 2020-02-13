@@ -92,7 +92,7 @@ $black			: #222;
 }
 
 body {
-  color: #777777;
+  color: #000000;
   font-family: "Poppins", sans-serif;
   font-size: 14px;
   font-weight: 300;
@@ -250,6 +250,11 @@ td, th {
 
 .fz-18 {
   font-size: 18px;
+}
+
+.fz-25 {
+  font-size: 25px;
+  line-height: 1.625em;
 }
 
 .fz-30 {
