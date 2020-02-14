@@ -57,7 +57,7 @@
 					<div class="row d-flex align-items-center justify-content-center">
 						<div class="about-content col-lg-12">
 							<h1 class="text-white">
-								Autoscaling in AWS 
+								Autoscaling in AWS
 							</h1>	
 							<p class="text-white link-nav"><a href="index.html">Home </a>  <span class="lnr lnr-arrow-right"></span><a href="blog-home.html">Blog </a> <span class="lnr lnr-arrow-right"></span> <a href="blog-single.html"> Autoscaling in AWS</a></p>
 						</div>	
@@ -74,7 +74,7 @@
 							<div class="single-post row">
 								<div class="col-lg-12">
 									<div class="feature-img">
-										<img class="img-fluid" src="img/blog/2020-02/wire-mess.jpg" alt="">
+										<img class="img-fluid" src="img/blog/2020-02/skyscraper-bangkok.jpg" alt="">
 									</div>									
 								</div>
 								<div class="col-lg-3  col-md-3 meta-details">
@@ -86,7 +86,7 @@
 									</ul>
 									<div class="user-details row">
 										<!-- <p class="user-name col-lg-12 col-md-12 col-6"><a href="#">Mark wiens</a> <span class="lnr lnr-user"></span></p> -->
-										<p class="date col-lg-12 col-md-12 col-6"><a href="#">15 Feb, 2020</a> <span class="lnr lnr-calendar-full"></span></p>
+										<p class="date col-lg-12 col-md-12 col-6"><a href="#">14 Feb, 2020</a> <span class="lnr lnr-calendar-full"></span></p>
 										<!-- <p class="view col-lg-12 col-md-12 col-6"><a href="#">1.2M Views</a> <span class="lnr lnr-eye"></span></p> -->
 										<!-- <p class="comments col-lg-12 col-md-12 col-6"><a href="#">06 Comments</a> <span class="lnr lnr-bubble"></span></p> -->
 										<!-- <ul class="social-links col-lg-12 col-md-12 col-6">
@@ -98,12 +98,12 @@
 									</div>
 								</div>
 								<div class="col-lg-9 col-md-9">
-									<h3 class="mt-20 mb-20 fz-30">Why you should worry if CPU utilization based policy does not work for you</h3>
+									<h3 class="mt-20 mb-20 fz-30">Cloud-Native autoscaling in AWS</h3>
 									<p class="excert text-justify">
-										So you are in the process of migration of a legacy system from data center to cloud in order to make the system scalable.
+										Imagine the situation, you have a legacy system partially migrated to multiple services and used by the relatively small amount of concurrent users. And one day stakeholders want to create an open API and expose the system to external clients with the load significantly higher than the existing system can handle, and it should be scalable to handle in the future even more.
 									</p>
 									<p>
-										If containerization is not an option you will definitely try cloud native <a href="aws-autoscaling-0.html">autoscaling </a>. If the basic policies and metrics are allowing you to scale in and out effectively - all good, but what if not?
+										Of course, the better solution would be to perform containerization and use orchestration i.e. Kubernetes, but what if this is not an option due to business reasons (there's no time to migrate to containers, we want it to run tomorrow)? This article is intended to help those who may get in a similar situation and will reveal some aspects of AWS Cloud-native autoscaling for the multiple-services applications. 
 									</p>									
 								</div>
 								<div class="col-lg-12">
@@ -120,19 +120,19 @@
 												I have gone through such a situation and I have have tried different autoscaling policies and metrics so that I learned some lessons I'd like to share.  
 											</p>
 											<p>
-												In this post, I am descibing why you should worry if CPU utilization based policy does not work for you.
+												In this post, I am descibing general details about autoscaling policies available in AWS and basic metrics for those policies. I will also highlight some possible issues, which may cause the basic policies won't be applicable and custom metrics based policies will be needed.
 											</p>
-												Usually, the proper utilization of instance resources will cause 70+% CPU utilization in case of high load. That is why it is usually recommended to scale the system out when CPU utilization reaches 50%.  
+												To add Scaling policy to the Auto-scaling group in AWS Console go to EC2->AutoScaling and select a group you want to scale.
 											</p>										
-											<p>Here are several possible scenarios of resource utilization in heavy load based on the application type:</p>
+											<p>There are 3 possible scaling policies types:</p>
 											<p>
 												<ul>
-													<li>- CPU critical applications - obviously higher workload should result in higher CPU utilization percentage, as CPU is the main resource they use;</li>
-													<li>- Memory critical applications: if it is an application with automatic garbage collection, i.e. JVM based, at some point when the application has not enough memory it will run GC more often, which will increase CPU consumption;</li>
-													<li>- Multiple threads applications - the more threads are started - the more resources they need from CPU to get managed and processed.</li>
+													<li>- Target Tracking Policy</li>
+													<li>- Simple Policy</li>
+													<li>- Scaling policy with steps</li>
 												</ul>
 											</p>
-											<!-- <p></p>
+											<p></p>
 											<p></p>
 											<p>
 												<div class="feature-img">
@@ -140,20 +140,96 @@
 												</div>									
 											</p>											
 											<p></p>
-											<p></p> -->
+											<p></p>
 											<p>
-												So if the instance is failing health-checks without CPU consumption reaching 70% it may be caused by some application or configurations restrictions which blocks it from using all resources more effectively. 
+												<b>Target Tracking policy</b> will try to keep the selected metric close to the target value by adding or removing instances. It can be applied only to predefined metrics:
 											</p>
 											<p>
-												One of the common examples is the Redis instance with several CPU cores i.e. 4 cores, which has performance problems but CPU usage on the level of 25%. This happens due to Redis is a single thread and can use only one core, but the CPU utilization metric is calculated for all cores together. So 100% + 0 +0 +0/ 4 =25%
+												<ul>
+													<li>- ALB Request Count Per Target</li>
+													<li>- Average CPU Utilization</li>
+													<li>- Average Network In</li>
+													<li>- Average Network Out</li>
+												</ul>
+											</p>
+
+											<p></p>
+											<p></p>
+											<p>
+												<div class="feature-img">
+													<img class="img-fluid" src="img/blog/2020-02/asg-target1.png" alt="">
+												</div>									
+											</p>											
+											<p></p>
+											<p></p>
+											<p></p>
+											<p></p>
+											<p>
+												<div class="feature-img">
+													<img class="img-fluid" src="img/blog/2020-02/asg-target2.png" alt="">
+												</div>									
+											</p>											
+											<p></p>
+											<p></p>
+											<p>
+												<b>Simple policy and Scaling policy with steps</b> are based on alarms, which you can create on the same page as Target or in Cloud Watch. Creating Alarm from Scaling policies limited to 
 											</p>
 											<p>
-												The other case maybe if you have some server configuration restricting the number of threads. In this case, if at some points the application has more requests than allowed threads so that it can not respond to health-check of LB and will be removed.
-											</p>
-															
+												<ul>
+													<li>- CPU Utilization</li>
+													<li>- Disk Reads/Writes</li>
+													<li>- Network In/Out</li>
+												</ul>
+											</p>	
+											<p></p>
+											<p></p>
+											<p>
+												<div class="feature-img">
+													<img class="img-fluid" src="img/blog/2020-02/asg-simple1.png" alt="">
+												</div>									
+											</p>											
+											<p></p>
+											<p></p>			
+											<p></p>
+											<p></p>
+											<p>
+												<div class="feature-img">
+													<img class="img-fluid" src="img/blog/2020-02/asg-simple2.png" alt="">
+												</div>									
+											</p>											
+											<p></p>
+											<p></p>											
+											<p>In Cloud Watch you can create an alarm based on any metric including custom ones.
+												For the Simple policy, it is allowed to specify how many instances should be added or removed when certain Alarm is on. In Step it's possible to specify several steps, which would add or remove the different number of instances based on the metric value, i.e. to add 2 times more instances if metric twice more than the limit set in alarm.
+												Even more customized policies can be created using lambdas.
+											</p>	
+											<p></p>
+											<p></p>
+											<p>
+												<div class="feature-img">
+													<img class="img-fluid" src="img/blog/2020-02/asg-steps1.png" alt="">
+												</div>									
+											</p>											
+											<p></p>
+											<p></p>			
+											<p></p>
+											<p></p>
+											<p>
+												<div class="feature-img">
+													<img class="img-fluid" src="img/blog/2020-02/asg-steps2.png" alt="">
+												</div>									
+											</p>											
+											<p></p>
+											<p></p>						
 											<div class="quotes">
 												<p>
-													So any time you have instance dying before reaches significant CPU utilization it is good to check if you have one of the describe situations and weather improve application configuration or change the instance type to use instance more effectively.
+													<b>If Target, Simple or Step policy works well for you - better to use them</b> but there might be a situation when they don't, for instance, in case if alarms on which these metrics are based(CPU Utilization, Disk Reads/Writes, Network In/Out,) does not reflect the real load of the application. 
+												</p>
+												<p>
+													In my case, it was the situation, when without reaching any significant level of CPU usage application stopped responding, the number of connections to this application was growing, causing a chain-effect of all the system goes down. And as the cloud-native autoscaling was used for some of the instances it took up to 5 minutes to recover so this caused downtime 15 to 30 minutes.
+												</p>
+												<p>
+													In such a situation, it would be required to <b>check what is going wrong with the application and use a more sophisticated approach based on custom metrics</b>.
 												</p>
 											</div>
 											
