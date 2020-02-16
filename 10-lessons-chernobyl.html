@@ -57,7 +57,7 @@
 					<div class="row d-flex align-items-center justify-content-center">
 						<div class="about-content col-lg-12">
 							<h1 class="text-white">
-								Autoscaling in AWS 
+								10 lessons of "Chernobyl" for the Software Engineer
 							</h1>	
 							<p class="text-white link-nav"><a href="index.html">Home </a>  <span class="lnr lnr-arrow-right"></span><a href="blog-home.html">Blog </a> <span class="lnr lnr-arrow-right"></span> <a href="blog-single.html"> Autoscaling in AWS</a></p>
 						</div>	
@@ -74,14 +74,14 @@
 							<div class="single-post row">
 								<div class="col-lg-12">
 									<div class="feature-img">
-										<img class="img-fluid" src="img/blog/2020-02/wire-mess.jpg" alt="">
+										<img class="img-fluid" src="img/blog/2020-02/Chernobyl-Season-1-HBO-Series-All-cmyk.jpg" alt="">
 									</div>									
 								</div>
 								<div class="col-lg-3  col-md-3 meta-details">
 									<ul class="tags">
-										<li><a href="#">AWS,</a></li>
-										<li><a href="#">Cloud,</a></li>
-										<li><a href="#">Autoscaling</a></li>
+										<li><a href="#">TV,</a></li>
+										<li><a href="#">Software Engineering,</a></li>
+										<li><a href="#">Mistakes</a></li>
 										
 									</ul>
 									<div class="user-details row">
@@ -98,12 +98,12 @@
 									</div>
 								</div>
 								<div class="col-lg-9 col-md-9">
-									<h3 class="mt-20 mb-20 fz-30">Why you should worry if CPU utilization based policy does not work for you</h3>
+									<h3 class="mt-20 mb-20 fz-30">10 lessons of TV-mini-series "Chernobyl" for the Software Engineer </h3>
 									<p class="excert text-justify">
-										Imagine you are in the process of migration of a legacy system from the data center to the cloud to make the system scalable.
+										Currently, the tv-show <a href="https://www.imdb.com/title/tt7366338/">"Chernobyl"</a> is very popular. With 9.4 ratings in IMDB, 2 Golden Globes, several Emmys and lots of other awards this series is still in the center of numerous discussions on how authentic and correct it described the real story. 
 									</p>
 									<p>
-										If containerization is not an option you will try cloud-native <a href="aws-autoscaling-0.html">autoscaling</a>. If the basic policies and metrics are allowing you to scale in and out effectively - all good, but what if not?
+										Of course, "Chernobyl" is an art-work in the first place and not a documentary, so, in my opinion, it can contain lots of mistakes and inaccuracies, as lots of other real-story inspired movies do. But I believe, many Software Engineers can learn some lessons from this show, regardless of how accurate and correct the authors interpreted the real story. 
 									</p>									
 								</div>
 								<div class="col-lg-12">
@@ -117,52 +117,125 @@
 										</div>	 -->
 										<div class="col-lg-12 mt-30">											
 											<p>
-												I have gone through such a situation and I have experienced numerous issues with autoscaling of different backend services (written in Python, Groovy, Java, PHP) so that I learned some lessons I'd like to share.
+												So here are the 10 lessons for the Software Engineer:
 											</p>
 											<p>
-												In this post, I am describing why you should worry if CPU utilization based policy does not work for you.
-											</p>
-												Usually, the proper utilization of instance resources will cause 70+% CPU utilization in case of high load. That is why it is usually recommended to scale the system out when CPU utilization reaches 50%.  
-											</p>										
-											<p>Here are several possible scenarios of resource utilization based on the application type:</p>
-											<p>
-												<ul>
-													<li>- CPU critical applications - obviously higher workload should result in higher CPU utilization percentage, as CPU is the main resource they use;</li>
-													<li>- Memory critical applications: if it is an application with automatic garbage collection, i.e. JVM based, at some point when the application has not enough memory it will run garbage collection more often, which will increase CPU consumption;</li>
-													<li>- Multiple threads applications - the more threads are started - the more resources they need from CPU to get managed and processed.</li>
-												</ul>
-											</p>
-											<p></p>
+												1) Measurements are important. Without corresponding metrics and tools to measure you are blind and deaf, so after one error pretty likely the other error will be done.
+                                            </p>
+                                            <p></p>
 											<p></p>
 											<p>
 												<div class="feature-img">
-													<img class="img-fluid" src="img/blog/2020-02/graph-mem-cpu.png" alt="">
+													<img class="img-fluid" src="img/blog/2020-02/10-1.jpg" alt="">
 												</div>									
 											</p>											
 											<p></p>
 											<p></p>
+                                            <p>
+                                                2) If something seems to be impossible, it is still possible. What we can't describe and understand is still possible to happen.
+                                            </p>	
+                                            <p></p>
+											<p></p>
 											<p>
-												So if the instance is failing health-checks without CPU consumption reaching 70% it <b>may be caused by some application or configurations restrictions which blocks it from using all resources more effectively. </b>
-											</p>
+												<div class="feature-img">
+													<img class="img-fluid" src="img/blog/2020-02/10-2.jpg" alt="">
+												</div>									
+											</p>											
+											<p></p>
+											<p></p>									
 											<p>
-												One of the common examples is the Redis instance with several CPU cores i.e. 4 cores, which has performance problems but CPU usage on the level of 25%. This happens due to Redis is a single thread and can use only one core, but the CPU utilization metric is calculated for all cores together. So 100% + 0 +0 +0/ 4 =25%
-											</p>
+                                                3) The second opinion is always important, regardless of the position of the person who expresses it.
+                                            </p>	
+                                            <p></p>
+											<p></p>
 											<p>
-												The other case may be if there is some <b>server configuration restricting the number of threads.</b> In this case, if at some points the application has more requests than allowed threads so that it can not respond to health-check of LB and will be removed.
-											</p>
+												<div class="feature-img">
+													<img class="img-fluid" src="img/blog/2020-02/10-3.jpg" alt="">
+												</div>									
+											</p>											
+											<p></p>
+											<p></p>									
+                                            <p>										
+											    4) Transparency is essential, because the more you try to hide something, the worst consequences it may cause in the very end.
+                                            </p>
+                                            <p></p>
+											<p></p>
 											<p>
-												Another important case is the CPU credit limit: it is applied in such a way that in case of heavy load during one hour the instance can consume all credits for the 24 next hours. In case if CPU credit is used, the CPU consumption will be on the level of 5%. 
-											</p>
+												<div class="feature-img">
+													<img class="img-fluid" src="img/blog/2020-02/10-4.jpg" alt="">
+												</div>									
+											</p>											
+											<p></p>
+											<p></p>	
+                                            <p>
+												5) Mistakes can always happen, so it is important to be ready to deal with them.
+                                            </p>
+                                            <p></p>
+											<p></p>
 											<p>
-												My advise, in case of any unusual behavior of the application under high load, which was not experienced in the data center <b> check the CPU credit limit and Block storage I/O limit</b>. Please mind that the CPU credit limit is enabled for generic instance types (T) by default.
-											</p>
-															
-											<div class="quotes">
+												<div class="feature-img">
+													<img class="img-fluid" src="img/blog/2020-02/10-5.jpg" alt="">
+												</div>									
+											</p>											
+											<p></p>
+											<p></p>	
+											<p>
+												6) The obvious solution is not always the best one. IT's good to have plan B and plan C.
+                                            </p>
+                                            <p></p>
+											<p></p>
+											<p>
+												<div class="feature-img">
+													<img class="img-fluid" src="img/blog/2020-02/10-6.jpg" alt="">
+												</div>									
+											</p>											
+											<p></p>
+											<p></p>	
+											<p>
+												7) It's important to know the steps to reproduce the problem in order to avoid it in the future.
+                                            </p>
+                                            <p></p>
+											<p></p>
+											<p>
+												<div class="feature-img">
+													<img class="img-fluid" src="img/blog/2020-02/10-7.jpg" alt="">
+												</div>									
+											</p>											
+											<p></p>
+											<p></p>	
+											<p>
+												8) Production is not a proper place for experiments. All experiments should be performed only in a proper safe environment.
+                                            </p>
+                                            <p></p>
+											<p></p>
+											<p>
+												<div class="feature-img">
+													<img class="img-fluid" src="img/blog/2020-02/10-8.jpg" alt="">
+												</div>									
+											</p>											
+											<p></p>
+											<p></p>	
+											<p>
+												9) Security is important and it should not be compromised for performance or for financial reasons.
+                                            </p>
+                                            <p></p>
+											<p></p>
+											<p>
+												<div class="feature-img">
+													<img class="img-fluid" src="img/blog/2020-02/10-9.jpg" alt="">
+												</div>									
+											</p>											
+											<p></p>
+											<p></p>	
+                                            <p>
+                                                10) The consequences of an error may be worse than it is expected. Whatever amount of money is saved due to experiments in production or ignoring of security policies, the crash in production may easily cost many more, not only regarding finance but also the reputation. 
+                                            </p>
+                                            <div class="quotes">
 												<p>
-													So any time some instance is observed to be dying before reaches significant CPU utilization it is good to check if one of the described situations takes place and whether to <b>improve application configuration or to change the instance type</b> to use instances more effectively.
+											        Of course, the results of a mistake in software in most cases won't be so dramatic. But still, it is important to remember that your estimation of consequences may be wrong and take all measures to avoid them.
 												</p>
 											</div>
-											
+																									
 										</div>									
 									</div>
 								</div>

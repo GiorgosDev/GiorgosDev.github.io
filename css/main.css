@@ -648,6 +648,10 @@ td, th {
   text-align: right;
 }
 
+.text-justify {
+  text-align: justify;
+}
+
 .flex {
   display: -webkit-box;
   display: -webkit-flex;
