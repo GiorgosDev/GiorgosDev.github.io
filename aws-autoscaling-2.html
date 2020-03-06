@@ -69,7 +69,7 @@
 					<div class="row d-flex align-items-center justify-content-center">
 						<div class="about-content col-lg-12">
 							<h1 class="text-white">
-								Autoscaling in AWS
+								Autoscaling in AWS 
 							</h1>	
 							<p class="text-white link-nav"><a href="index.html">Home </a>  <span class="lnr lnr-arrow-right"></span><a href="blog-home.html">Blog </a> <span class="lnr lnr-arrow-right"></span> <a href="#"> Autoscaling in AWS</a></p>
 						</div>	
@@ -86,7 +86,7 @@
 							<div class="single-post row">
 								<div class="col-lg-12">
 									<div class="feature-img">
-										<img class="img-fluid" src="img/blog/2020-02/skyscraper-bangkok.jpg" alt="">
+										<img class="img-fluid" src="img/blog/2020-03/bangkok.jpg" alt="">
 									</div>									
 								</div>
 								<div class="col-lg-3  col-md-3 meta-details">
@@ -98,7 +98,7 @@
 									</ul>
 									<div class="user-details row">
 										<!-- <p class="user-name col-lg-12 col-md-12 col-6"><a href="#">Mark wiens</a> <span class="lnr lnr-user"></span></p> -->
-										<p class="date col-lg-12 col-md-12 col-6"><a href="#">14 Feb, 2020</a> <span class="lnr lnr-calendar-full"></span></p>
+										<p class="date col-lg-12 col-md-12 col-6"><a href="#">06 Mar, 2020</a> <span class="lnr lnr-calendar-full"></span></p>
 										<!-- <p class="view col-lg-12 col-md-12 col-6"><a href="#">1.2M Views</a> <span class="lnr lnr-eye"></span></p> -->
 										<!-- <p class="comments col-lg-12 col-md-12 col-6"><a href="#">06 Comments</a> <span class="lnr lnr-bubble"></span></p> -->
 										<!-- <ul class="social-links col-lg-12 col-md-12 col-6">
@@ -110,13 +110,17 @@
 									</div>
 								</div>
 								<div class="col-lg-9 col-md-9">
-									<h3 class="mt-20 mb-20 fz-30">Cloud-Native autoscaling in AWS</h3>
+									<h3 class="mt-20 mb-20 fz-30">Why and how concurrency based autoscaling may be useful</h3>
 									<p class="excert text-justify">
-										Imagine the situation, you have a legacy system partially migrated to multiple services and used by the relatively small amount of concurrent users. And one day stakeholders want to create an open API and expose the system to external clients with the load significantly higher than the existing system can handle, and it should be scalable to handle in the future even more.
+										Every time facing a task of configuring how the system should scale out and scale in, we decide what metrics and policies will be more effective. 
+										I have already described <a href="aws-autoscaling-1.html">CPU based policies</a> and what challenges they may have so that ideally would be to check the configuration and fix the possible root cause. 
 									</p>
 									<p>
-										Of course, the better solution would be to perform containerization and use orchestration i.e. Kubernetes, but what if this is not an option due to business reasons (there's no time to migrate to containers, we want it to run tomorrow)? This article is intended to help those who may get in a similar situation and will reveal some aspects of AWS Cloud-native autoscaling for the multiple-services applications. 
-									</p>									
+										But what if this is not an option, i.e. the service is represented by legacy application, written years ago, not well documented, etc. and we still want to run it and autoscale?
+									</p>	
+									<p>
+										I'd like to share possible approaches to handle such a situation.
+									</p>								
 								</div>
 								<div class="col-lg-12">
 									
@@ -128,120 +132,79 @@
 											<img class="img-fluid" src="img/blog/post-img2.jpg" alt="">
 										</div>	 -->
 										<div class="col-lg-12 mt-30">											
+											
 											<p>
-												I have gone through such a situation and I have tried different autoscaling policies and metrics so that I learned some lessons I'd like to share.  
-											</p>
-											<p>
-												In this post, I am describing general details about autoscaling policies available in AWS and basic metrics for those policies. I will also highlight some possible issues, which may cause the basic policies won't be applicable and custom metrics based policies will be needed.
-											</p>
-												To add Scaling policy to the Auto-scaling group in AWS Console go to EC2->AutoScaling and select a group you want to scale.
-											</p>										
-											<p>There are 3 possible scaling policies types:</p>
-											<p>
-												<ul>
-													<li>- Target Tracking Policy</li>
-													<li>- Simple Policy</li>
-													<li>- Scaling policy with steps</li>
-												</ul>
+												There are no good or bad policies. There are effective and effective ineffective for performing some functionality, and the level of applicability may differ based on the load the application must handle, nature of the load(stable, linearly-changing, periodically-changing, random), dynamics of changing this load, reliability, and availability required to provide, ability to auto-recover and others.
 											</p>
 											<p></p>
 											<p></p>
 											<p>
 												<div class="feature-img">
-													<img class="img-fluid" src="img/blog/2020-02/asg-policies.png" alt="">
+													<img class="img-fluid" src="img/blog/2020-03/autoscaling-2-1.png" alt="">
 												</div>									
 											</p>											
 											<p></p>
 											<p></p>
 											<p>
-												<b>Target Tracking policy</b> will try to keep the selected metric close to the target value by adding or removing instances. It can be applied only to predefined metrics:
+												The usual approach is using CPU-based metrics.  For the high availability applications, where there are a lot of concurrent client requests, this metric might not effectively reflect the real load, as the relation between CPU utilization and the number of requests/users may be non-linear. 
 											</p>
 											<p>
-												<ul>
-													<li>- ALB Request Count Per Target</li>
-													<li>- Average CPU Utilization</li>
-													<li>- Average Network In</li>
-													<li>- Average Network Out</li>
-												</ul>
-											</p>
-
-											<p></p>
-											<p></p>
-											<p>
-												<div class="feature-img">
-													<img class="img-fluid" src="img/blog/2020-02/asg-target1.png" alt="">
-												</div>									
-											</p>											
-											<p></p>
-											<p></p>
-											<p></p>
-											<p></p>
-											<p>
-												<div class="feature-img">
-													<img class="img-fluid" src="img/blog/2020-02/asg-target2.png" alt="">
-												</div>									
-											</p>											
-											<p></p>
-											<p></p>
-											<p>
-												<b>Simple policy and Scaling policy with steps</b> are based on alarms, which you can create on the same page as Target or in Cloud Watch. Creating Alarm from Scaling policies limited to 
+												Still, it is ok to use  CPU based autoscaling policies, concurrency based policies may make you resource usage more effective. The worst scenario for CPU based metric is if for some reason under the load instance won't be able to respond to health check still having CPU usage on a normal level.
 											</p>
 											<p>
-												<ul>
-													<li>- CPU Utilization</li>
-													<li>- Disk Reads/Writes</li>
-													<li>- Network In/Out</li>
-												</ul>
-											</p>	
+												In this case, as far as the instance is not responding to health checks, the autoscaling group will remove the instance from the group and terminate it. This will dramatically affect the system which is already under the huge load. To handle such situations we can use concurrency based metrics.
+											</p>
+											<p>
+												Here you can read more about how concurrency based metrics may be more effective:
+<a href="https://medium.com/stacktical/how-to-lose-money-with-the-new-aws-elb-network-load-balancer-e87e670c05ea">How to Lose Money with the New AWS ELB Network Load Balancer</a>
+											</p>
+											<p>
+												Talking about concurrency based metrics, the ActiveConnectionCount metric is often mentioned. This metric still has a problem which makes it not very applicable for Autoscaling. ActiveConnectionCount represents the number of connections to load balancer, but it does not take into account the number of target instances. For example, you have a Target policy tracking Active connections count to 50 connections and 5 instances running.  After the load increases and ActiveConnectionCount equals 100 connections Autoscaling group will add some more instances.
+											</p>
 											<p></p>
 											<p></p>
 											<p>
 												<div class="feature-img">
-													<img class="img-fluid" src="img/blog/2020-02/asg-simple1.png" alt="">
+													<img class="img-fluid" src="img/blog/2020-03/autoscaling-2-2.png" alt="">
 												</div>									
 											</p>											
-											<p></p>
-											<p></p>			
 											<p></p>
 											<p></p>
 											<p>
-												<div class="feature-img">
-													<img class="img-fluid" src="img/blog/2020-02/asg-simple2.png" alt="">
-												</div>									
-											</p>											
-											<p></p>
-											<p></p>											
-											<p>In Cloud Watch you can create an alarm based on any metric including custom ones.
-												For the Simple policy, it is allowed to specify how many instances should be added or removed when certain Alarm is on. In Step it's possible to specify several steps, which would add or remove the different number of instances based on the metric value, i.e. to add 2 times more instances if metric twice more than the limit set in alarm.
-												Even more customized policies can be created using lambdas.
-											</p>	
-											<p></p>
-											<p></p>
-											<p>
-												<div class="feature-img">
-													<img class="img-fluid" src="img/blog/2020-02/asg-steps1.png" alt="">
-												</div>									
-											</p>											
-											<p></p>
-											<p></p>			
-											<p></p>
-											<p></p>
-											<p>
-												<div class="feature-img">
-													<img class="img-fluid" src="img/blog/2020-02/asg-steps2.png" alt="">
-												</div>									
-											</p>											
-											<p></p>
-											<p></p>						
+												Let's suppose after scaling-out there are 10 instances and still 100 connections. If the load happened is a short spike this policy will help to sort out the requests and will scale down. But what if the increased load is not a short term event? And supposing 1 instance is capable to process 10 connections, having 10 instances per 100 connections is fine. But as far as your Policy will try to keep 50 Active connections, it will scale out again. So at some point, you will end up having maximum allowed by your policy number of instances running. 
+											</p>
+															
 											<div class="quotes">
 												<p>
-													<b>If Target, Simple or Step policy works well for you - better to use them</b> but there might be a situation when they don't, for instance, in case if alarms on which these metrics are based(CPU Utilization, Disk Reads/Writes, Network In/Out,) does not reflect the real load of the application. 
+													ActiveConnectionCount is useful in case if you have a steady load with some spikes which don't last long. In case if you want to handle a situation when the number of connections may steadily grow to 4x of the normal amount, then decrease to normal level after several hours  - ActiveConnectionCount is not the best choice. 
 												</p>
+											</div>
+											<p></p>
+											<p></p>
+											<p></p>
+											<p></p>
+											<p>
+												So what we want is ActiveConnectionCount per target, and RequestPerTarget is a metric that is pretty similar to it. In most cases, it allows us to scale in and out pretty relevant.
+											</p>
+											<p>
+												Now getting back to the scenario when one instance is not responding to health check due to huge load, it happens it is still considered as an existing target for some time, so in case of spike 4x of normal you may have a couple of instances not responding, but no scaling out started to handle the situation proactively.
+											</p>
+											
+											<p></p>
+											<p></p>
+											<p>
+												<div class="feature-img">
+													<img class="img-fluid" src="img/blog/2020-03/autoscaling-2-3.png" alt="">
+												</div>									
+											</p>											
+											<p></p>
+											<p></p>
+											<p>
+												So RequestPerTarget is a good metric to address steadily increasing and decreasing load. As for spikes, it may be a little bit slow to react, and as a result, may cause unnecessary downtimes and errors. You can see that comparing RequestPerTarget and HealthyHost metrics. 
+											</p>
+											<div class="quotes">
 												<p>
-													In my case, it was the situation, when without reaching any significant level of CPU usage application stopped responding, the number of connections to this application was growing, causing a chain-effect of all the system goes down. And as the cloud-native autoscaling was used for some of the instances it took up to 5 minutes to recover so this caused downtime 15 to 30 minutes.
-												</p>
-												<p>
-													In such a situation, it would be required to <b>check what is going wrong with the application and use a more sophisticated approach based on custom metrics</b>.
+													So it would be helpful to have not just requests per target, where some targets might be overloaded, but requests or connections per healthy target, so you can proactively indicate situation when some instance is overloaded and very likely might be removed by autoscaling group. In this case, you can create a policy to add several instances and rapidly decrease the load and fulfill the loss of unhealthy instances if it happens.
 												</p>
 											</div>
 											<p></p>
@@ -254,7 +217,9 @@
 											<p>
 												<a href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-scale-based-on-demand.html">AWS documentation</a>
 											</p>
-											
+											<p>
+												<a href="https://medium.com/stacktical/how-to-lose-money-with-the-new-aws-elb-network-load-balancer-e87e670c05ea">How to Lose Money with the New AWS ELB Network Load Balancer</a>
+											</p>
 										</div>									
 									</div>
 								</div>
@@ -288,8 +253,8 @@
 								</div>
 							</div> -->
 							<div class="comments-area">
-								<div class="fb-comments" data-href="https://giorgosdev.github.io/aws-autoscaling-0.html" data-width="" data-numposts="5"></div>                                    				
-							</div>
+								<div class="fb-comments" data-href="https://georgiy.dev/aws-autoscaling-1.html" data-width="" data-numposts="5"></div>                           				
+							</div> 
 							<!-- <div class="comment-form">
 								<h4>Leave a Comment</h4>
 								<form>
@@ -309,7 +274,7 @@
 									</div>
 									<a href="#" class="primary-btn text-uppercase">Post Comment</a>	
 								</form>
-							</div> -->
+							</div>
 						</div>
 						<!-- <div class="col-lg-4 sidebar-widgets">
 							<div class="widget-wrap">
