@@ -1,0 +1,711 @@
+	<!DOCTYPE html>
+	<html lang="zxx" class="no-js">
+	<head>
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-158840821-1"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+
+			gtag('config', 'UA-158840821-1');
+		</script>
+		<!-- Mobile Specific Meta -->
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<!-- Favicon-->
+		<link rel="shortcut icon" href="img/fav.png">
+		<!-- Author Meta -->
+		<meta name="author" content="georgiy mayshmaz">
+		<!-- Meta Description -->
+		<meta name="description" content="">
+		<!-- Meta Keyword -->
+		<meta name="keywords" content="">
+		<!-- meta character set -->
+		<meta charset="UTF-8">
+		<!-- Site Title -->
+		<title>georgiy.dev - Software Architecture - Cloud Computing - Blog</title>
+
+		<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet"> 
+			<!--
+			CSS
+			============================================= -->
+			<link rel="stylesheet" href="css/linearicons.css">
+			<link rel="stylesheet" href="css/font-awesome.min.css">
+			<link rel="stylesheet" href="css/bootstrap.css">
+			<link rel="stylesheet" href="css/magnific-popup.css">
+			<link rel="stylesheet" href="css/jquery-ui.css">				
+			<link rel="stylesheet" href="css/nice-select.css">							
+			<link rel="stylesheet" href="css/animate.min.css">
+			<link rel="stylesheet" href="css/owl.carousel.css">					
+			<link rel="stylesheet" href="css/main.css">
+		</head>
+		<body>	
+			<div id="fb-root"></div>
+			<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v6.0"></script>
+
+			<header id="header">
+				<div class="container main-menu">
+					<div class="row align-items-center justify-content-between d-flex">
+						<div id="logo">
+						<a href="index.html"><img src="img/logo.png" alt="" title="georgiy.dev" /></a>						
+						</div>
+						<nav id="nav-menu-container">
+						<ul class="nav-menu">
+							<li><a href="index.html">Home</a></li>
+							<li><a href="about.html">About</a></li>		
+							<li><a href="blog-home.html">Blog</a></li>		         
+								<!-- <li><a href="blog-single.html">Blog Single</a></li> -->			         			          					          		          
+							<li><a href="contact.html">Contact</a></li>
+						</ul>
+						</nav><!-- #nav-menu-container -->		    		
+					</div>
+				</div>
+			</header><!-- #header -->
+		  
+			<!-- start banner Area -->
+			<section class="relative about-banner">	
+				<div class="overlay overlay-bg"></div>
+				<div class="container">				
+					<div class="row d-flex align-items-center justify-content-center">
+						<div class="about-content col-lg-12">
+							<h1 class="text-white">
+								Autoscaling in AWS 
+							</h1>	
+							<p class="text-white link-nav"><a href="index.html">Home </a>  <span class="lnr lnr-arrow-right"></span><a href="blog-home.html">Blog </a> <span class="lnr lnr-arrow-right"></span> <a href="#"> Autoscaling in AWS</a></p>
+						</div>	
+					</div>
+				</div>
+			</section>
+			<!-- End banner Area -->					  
+			
+			<!-- Start post-content Area -->
+			<section class="post-content-area single-post-area">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-12 posts-list">
+							<div class="single-post row">
+								<div class="col-lg-12">
+									<div class="feature-img">
+										<img class="img-fluid" src="img/blog/2020-04/ananas.jpg" alt="">
+									</div>									
+								</div>
+								<div class="col-lg-3  col-md-3 meta-details">
+									<ul class="tags">
+										<li><a href="#">AWS,</a></li>
+										<li><a href="#">Cloud,</a></li>
+										<li><a href="#">Autoscaling</a></li>
+										
+									</ul>
+									<div class="user-details row">
+										<!-- <p class="user-name col-lg-12 col-md-12 col-6"><a href="#">Mark wiens</a> <span class="lnr lnr-user"></span></p> -->
+										<p class="date col-lg-12 col-md-12 col-6"><a href="#">10 Apr, 2020</a> <span class="lnr lnr-calendar-full"></span></p>
+										<!-- <p class="view col-lg-12 col-md-12 col-6"><a href="#">1.2M Views</a> <span class="lnr lnr-eye"></span></p> -->
+										<!-- <p class="comments col-lg-12 col-md-12 col-6"><a href="#">06 Comments</a> <span class="lnr lnr-bubble"></span></p> -->
+										<!-- <ul class="social-links col-lg-12 col-md-12 col-6">
+											<li><a href="#"><i class="fa fa-facebook"></i></a></li>
+											<li><a href="#"><i class="fa fa-twitter"></i></a></li>
+											<li><a href="#"><i class="fa fa-github"></i></a></li>
+											<li><a href="#"><i class="fa fa-behance"></i></a></li>
+										</ul>																				 -->
+									</div>
+								</div>
+								<div class="col-lg-9 col-md-9">
+									<h3 class="mt-20 mb-20 fz-30">Setting up custom metrics for autoscaling in AWS</h3>
+									<p class="excert text-justify">
+										In many cases, custom metrics may be useful to make more ad-hoc configuration of autoscaling in AWS. For example, a custom metric can allow an autoscaling group to react more rapidly on spikes or to take into account the health state of hosts for concurrency based metrics.
+ActiveConnectionCount per Healthy Host metric may be helpful to scale in an application, that may stop to respond to health-checks if it is fully loaded. In general, this metric may be used both to rapidly react on spikes, regardless of application type and may be more effective than CPU based and RequestPerHost metrics. 
+
+									</p>
+									<p>
+										In this post, it is described how to manually set up a custom metric and autoscaling policy for an autoscaling group with an application load balancer and target group.
+									</p>	
+									<p>
+										Prerequisites: autoscaling group with the target group and the application load balancer are working, you can request to load balancer and receive responses from target instances. Detailed logging is enabled for the application load balancer.
+									</p>								
+								</div>
+								<div class="col-lg-12">
+									
+									<div class="row mt-30 mb-30 text-justify">
+										<!-- <div class="col-6">
+											<img class="img-fluid" src="img/blog/post-img1.jpg" alt="">
+										</div>
+										<div class="col-6">
+											<img class="img-fluid" src="img/blog/post-img2.jpg" alt="">
+										</div>	 -->
+										<div class="col-lg-12 mt-30">											
+											
+											<p>
+												1) To create custom metric go to CloudWatch in AWS Console, click on Alarms -> Create Alarm
+											</p>
+											<p></p>
+											<p></p>
+											<p>
+												<div class="feature-img">
+													<img class="img-fluid" src="img/blog/2020-04/aws-asg-cm-1.png" alt="">
+												</div>									
+											</p>											
+											<p></p>
+											<p></p>
+											
+											<p>
+												2) In Create New Alarm screen click on Select Metric
+											</p>
+											<p></p>
+											<p></p>
+											<p>
+												<div class="feature-img">
+													<img class="img-fluid" src="img/blog/2020-04/aws-asg-cm-2.png" alt="">
+												</div>									
+											</p>											
+											<p></p>
+											<p></p>
+
+											<p>
+												3) In Search field put ActiveConnectionCount and click on ApplicationELB -> Per AppELB Metrics, select one corresponding to your load balancer (if you have more than one load balancer - there will be shown one per load balancer)
+											</p>
+											<p></p>
+											<p></p>
+											<p>
+												<div class="feature-img">
+													<img class="img-fluid" src="img/blog/2020-04/aws-asg-cm-3.png" alt="">
+												</div>									
+											</p>											
+											<p></p>
+											<p></p>
+
+											<p></p>
+											<p></p>
+											<p>
+												<div class="feature-img">
+													<img class="img-fluid" src="img/blog/2020-04/aws-asg-cm-4.png" alt="">
+												</div>									
+											</p>											
+											<p></p>
+											<p></p>
+
+											<p></p>
+											<p></p>
+											<p>
+												<div class="feature-img">
+													<img class="img-fluid" src="img/blog/2020-04/aws-asg-cm-5.png" alt="">
+												</div>									
+											</p>											
+											<p></p>
+											<p></p>
+
+											<p>
+												4) Remove ActiveConnectionCount from Search field, to return to the root of Metric hierarchy, and remove everything from Search field
+											</p>
+											<p>
+												5) In Search field put HealthyHostCount , then click ApplicationELB -> Per AppELB, per TG Metrics
+											</p>
+											<p></p>
+											<p></p>
+											<p>
+												<div class="feature-img">
+													<img class="img-fluid" src="img/blog/2020-04/aws-asg-cm-6.png" alt="">
+												</div>									
+											</p>											
+											<p></p>
+											<p></p>
+											<p>
+												6) Select HealthyHostCount metric corresponding to the same load balancer that you selected on step 3
+											</p>
+											<p>
+												7) Go to Graphed metrics tab
+											</p>
+
+											<p></p>
+											<p></p>
+											<p>
+												<div class="feature-img">
+													<img class="img-fluid" src="img/blog/2020-04/aws-asg-cm-7.png" alt="">
+												</div>									
+											</p>											
+											<p></p>
+											<p></p>
+
+											<p>
+												8) Select Start with empty expression in the dropdown
+											</p>
+
+											<p></p>
+											<p></p>
+											<p>
+												<div class="feature-img">
+													<img class="img-fluid" src="img/blog/2020-04/aws-asg-cm-8.png" alt="">
+												</div>									
+											</p>											
+											<p></p>
+											<p></p>
+
+											<p>
+												9) In Details field of Expression1 put m1/m2
+											</p>
+
+											<p></p>
+											<p></p>
+											<p>
+												<div class="feature-img">
+													<img class="img-fluid" src="img/blog/2020-04/aws-asg-cm-9.png" alt="">
+												</div>									
+											</p>											
+											<p></p>
+											<p></p>
+
+											<p>
+												10) Select period 1 minute. Unselect m1 and m2, leave only e1 selected 
+											</p>
+
+											<p></p>
+											<p></p>
+											<p>
+												<div class="feature-img">
+													<img class="img-fluid" src="img/blog/2020-04/aws-asg-cm-10.png" alt="">
+												</div>									
+											</p>											
+											<p></p>
+											<p></p>
+
+											<p>
+												11) Click Select metric
+											</p>
+
+											<p></p>
+											<p></p>
+											<p>
+												<div class="feature-img">
+													<img class="img-fluid" src="img/blog/2020-04/aws-asg-cm-11.png" alt="">
+												</div>									
+											</p>											
+											<p></p>
+											<p></p>
+
+											<p>
+												12) Put Metric name and description, i.e. ConnectionsPerHosts
+											</p>
+
+											<p></p>
+											<p></p>
+											<p>
+												<div class="feature-img">
+													<img class="img-fluid" src="img/blog/2020-04/aws-asg-cm-12.png" alt="">
+												</div>									
+											</p>											
+											<p></p>
+											<p></p>
+
+											<p>
+												13) Set number of datapoints
+											</p>
+											<p>
+												14) If you don't have notification list click New List and create one with your email
+											</p>
+
+											<p>
+												15) Select notification list
+											</p>
+											<p>
+												16) Click Create Alarm
+											</p>
+
+											<p></p>
+											<p></p>
+											<p>
+												<div class="feature-img">
+													<img class="img-fluid" src="img/blog/2020-04/aws-asg-cm-13.png" alt="">
+												</div>									
+											</p>											
+											<p></p>
+											<p></p>
+											
+											<p>
+												17) You can see AutoScaling action, but it is better to set up the policy from autoscaling group screen. 
+											</p>
+
+											<p></p>
+											<p></p>
+											<p>
+												<div class="feature-img">
+													<img class="img-fluid" src="img/blog/2020-04/aws-asg-cm-14.png" alt="">
+												</div>									
+											</p>											
+											<p></p>
+											<p></p>
+
+											<p>
+												18) On the Autoscaling groups screen go to Scaling Tab and click Add policy
+											</p>
+
+											<p></p>
+											<p></p>
+											<p>
+												<div class="feature-img">
+													<img class="img-fluid" src="img/blog/2020-04/aws-asg-cm-15.png" alt="">
+												</div>									
+											</p>											
+											<p></p>
+											<p></p>
+
+											<p></p>
+											<p></p>
+											<p>
+												<div class="feature-img">
+													<img class="img-fluid" src="img/blog/2020-04/aws-asg-cm-16.png" alt="">
+												</div>									
+											</p>											
+											<p></p>
+											<p></p>
+
+											<p>
+												19) Select metric you've created, it should be visible, but may appear with some delay, in my case sometimes it took hours to appear, so don't hurry to decide that something is wrong with the custom metric. Next click Create Policy button in the top right of the tab.
+											</p>
+
+											<p></p>
+											<p></p>
+											<p>
+												<div class="feature-img">
+													<img class="img-fluid" src="img/blog/2020-04/aws-asg-cm-17.png" alt="">
+												</div>									
+											</p>											
+											<p></p>
+											<p></p>
+
+											<p></p>
+											<p></p>
+											<p>
+												<div class="feature-img">
+													<img class="img-fluid" src="img/blog/2020-04/aws-asg-cm-18.png" alt="">
+												</div>									
+											</p>											
+											<p></p>
+											<p></p>
+
+											<p></p>
+											<p></p>
+											<p>
+												<div class="feature-img">
+													<img class="img-fluid" src="img/blog/2020-04/aws-asg-cm-20.png" alt="">
+												</div>									
+											</p>											
+											<p></p>
+											<p></p>
+
+											<p>
+												So, in such a manner, creating different Alarms, it is possible to configure very flexible policies.
+											</p>
+
+											<p></p>
+											<p></p>
+											<p>
+												<div class="feature-img">
+													<img class="img-fluid" src="img/blog/2020-04/aws-asg-cm-19.png" alt="">
+												</div>									
+											</p>											
+											<p></p>
+											<p></p>
+
+
+
+
+											<div class="quotes">
+												<p>
+													Of course, int the most cases the policy should be configured programmatically and not from AWS console, but the described approach is useful to analyze and select the best metric.
+												</p>
+											</div>
+											<p></p>
+											<p></p>
+											<p></p>
+											<p></p>
+											<p>
+												Sources & More details:
+											</p>
+											<p>
+												<a href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-scale-based-on-demand.html">AWS documentation</a>
+											</p>
+
+										</div>									
+									</div>
+								</div>
+							</div>
+							<!-- <div class="navigation-area">
+								<div class="row">
+									<div class="col-lg-6 col-md-6 col-12 nav-left flex-row d-flex justify-content-start align-items-center">
+										<div class="thumb">
+											<a href="#"><img class="img-fluid" src="img/blog/prev.jpg" alt=""></a>
+										</div>
+										<div class="arrow">
+											<a href="#"><span class="lnr text-white lnr-arrow-left"></span></a>
+										</div>
+										<div class="detials">
+											<p>Prev Post</p>
+											<a href="#"><h4>Space The Final Frontier</h4></a>
+										</div>
+									</div>
+									<div class="col-lg-6 col-md-6 col-12 nav-right flex-row d-flex justify-content-end align-items-center">
+										<div class="detials">
+											<p>Next Post</p>
+											<a href="#"><h4>Telescopes 101</h4></a>
+										</div>
+										<div class="arrow">
+											<a href="#"><span class="lnr text-white lnr-arrow-right"></span></a>
+										</div>
+										<div class="thumb">
+											<a href="#"><img class="img-fluid" src="img/blog/next.jpg" alt=""></a>
+										</div>										
+									</div>									
+								</div>
+							</div> -->
+							<div class="comments-area">
+								<div class="fb-comments" data-href="https://georgiy.dev/2020-04-10-aws-autoscaling-3.html" data-width="" data-numposts="5"></div>
+							</div> 
+							<!-- <div class="comment-form">
+								<h4>Leave a Comment</h4>
+								<form>
+									<div class="form-group form-inline">
+									  <div class="form-group col-lg-6 col-md-12 name">
+									    <input type="text" class="form-control" id="name" placeholder="Enter Name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Name'">
+									  </div>
+									  <div class="form-group col-lg-6 col-md-12 email">
+									    <input type="email" class="form-control" id="email" placeholder="Enter email address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter email address'">
+									  </div>										
+									</div>
+									<div class="form-group">
+										<input type="text" class="form-control" id="subject" placeholder="Subject" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Subject'">
+									</div>
+									<div class="form-group">
+										<textarea class="form-control mb-10" rows="5" name="message" placeholder="Messege" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Messege'" required=""></textarea>
+									</div>
+									<a href="#" class="primary-btn text-uppercase">Post Comment</a>	
+								</form>
+							</div>
+						</div>
+						<!-- <div class="col-lg-4 sidebar-widgets">
+							<div class="widget-wrap">
+								<div class="single-sidebar-widget search-widget">
+									<form class="search-form" action="#">
+			                            <input placeholder="Search Posts" name="search" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search Posts'" >
+			                            <button type="submit"><i class="fa fa-search"></i></button>
+			                        </form>
+								</div>
+								<div class="single-sidebar-widget user-info-widget">
+									<img src="img/blog/user-info.png" alt="">
+									<a href="#"><h4>Charlie Barber</h4></a>
+									<p>
+										Senior blog writer
+									</p>
+									<ul class="social-links">
+										<li><a href="#"><i class="fa fa-facebook"></i></a></li>
+										<li><a href="#"><i class="fa fa-twitter"></i></a></li>
+										<li><a href="#"><i class="fa fa-github"></i></a></li>
+										<li><a href="#"><i class="fa fa-behance"></i></a></li>
+									</ul>
+									<p>
+										Boot camps have its supporters andit sdetractors. Some people do not understand why you should have to spend money on boot camp when you can get. Boot camps have itssuppor ters andits detractors.
+									</p>
+								</div>
+								<div class="single-sidebar-widget popular-post-widget">
+									<h4 class="popular-title">Popular Posts</h4>
+									<div class="popular-post-list">
+										<div class="single-post-list d-flex flex-row align-items-center">
+											<div class="thumb">
+												<img class="img-fluid" src="img/blog/pp1.jpg" alt="">
+											</div>
+											<div class="details">
+												<a href="blog-single.html"><h6>Space The Final Frontier</h6></a>
+												<p>02 Hours ago</p>
+											</div>
+										</div>
+										<div class="single-post-list d-flex flex-row align-items-center">
+											<div class="thumb">
+												<img class="img-fluid" src="img/blog/pp2.jpg" alt="">
+											</div>
+											<div class="details">
+												<a href="blog-single.html"><h6>The Amazing Hubble</h6></a>
+												<p>02 Hours ago</p>
+											</div>
+										</div>
+										<div class="single-post-list d-flex flex-row align-items-center">
+											<div class="thumb">
+												<img class="img-fluid" src="img/blog/pp3.jpg" alt="">
+											</div>
+											<div class="details">
+												<a href="blog-single.html"><h6>Astronomy Or Astrology</h6></a>
+												<p>02 Hours ago</p>
+											</div>
+										</div>
+										<div class="single-post-list d-flex flex-row align-items-center">
+											<div class="thumb">
+												<img class="img-fluid" src="img/blog/pp4.jpg" alt="">
+											</div>
+											<div class="details">
+												<a href="blog-single.html"><h6>Asteroids telescope</h6></a>
+												<p>02 Hours ago</p>
+											</div>
+										</div>															
+									</div>
+								</div>
+								<div class="single-sidebar-widget ads-widget">
+									<a href="#"><img class="img-fluid" src="img/blog/ads-banner.jpg" alt=""></a>
+								</div>
+								<div class="single-sidebar-widget post-category-widget">
+									<h4 class="category-title">Post Catgories</h4>
+									<ul class="cat-list">
+										<li>
+											<a href="#" class="d-flex justify-content-between">
+												<p>Technology</p>
+												<p>37</p>
+											</a>
+										</li>
+										<li>
+											<a href="#" class="d-flex justify-content-between">
+												<p>Lifestyle</p>
+												<p>24</p>
+											</a>
+										</li>
+										<li>
+											<a href="#" class="d-flex justify-content-between">
+												<p>Fashion</p>
+												<p>59</p>
+											</a>
+										</li>
+										<li>
+											<a href="#" class="d-flex justify-content-between">
+												<p>Art</p>
+												<p>29</p>
+											</a>
+										</li>
+										<li>
+											<a href="#" class="d-flex justify-content-between">
+												<p>Food</p>
+												<p>15</p>
+											</a>
+										</li>
+										<li>
+											<a href="#" class="d-flex justify-content-between">
+												<p>Architecture</p>
+												<p>09</p>
+											</a>
+										</li>
+										<li>
+											<a href="#" class="d-flex justify-content-between">
+												<p>Adventure</p>
+												<p>44</p>
+											</a>
+										</li>															
+									</ul>
+								</div>	
+								<div class="single-sidebar-widget newsletter-widget">
+									<h4 class="newsletter-title">Newsletter</h4>
+									<p>
+										Here, I focus on a range of items and features that we use in life without
+										giving them a second thought.
+									</p>
+									<div class="form-group d-flex flex-row">
+									   <div class="col-autos">
+									      <div class="input-group">
+									        <div class="input-group-prepend">
+									          <div class="input-group-text"><i class="fa fa-envelope" aria-hidden="true"></i>
+											</div>
+									        </div>
+									        <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Enter email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter email'" >
+									      </div>
+									    </div>
+									    <a href="#" class="bbtns">Subcribe</a>
+									</div>	
+									<p class="text-bottom">
+										You can unsubscribe at any time
+									</p>								
+								</div>
+								<div class="single-sidebar-widget tag-cloud-widget">
+									<h4 class="tagcloud-title">Tag Clouds</h4>
+									<ul>
+										<li><a href="#">Technology</a></li>
+										<li><a href="#">Fashion</a></li>
+										<li><a href="#">Architecture</a></li>
+										<li><a href="#">Fashion</a></li>
+										<li><a href="#">Food</a></li>
+										<li><a href="#">Technology</a></li>
+										<li><a href="#">Lifestyle</a></li>
+										<li><a href="#">Art</a></li>
+										<li><a href="#">Adventure</a></li>
+										<li><a href="#">Food</a></li>
+										<li><a href="#">Lifestyle</a></li>
+										<li><a href="#">Adventure</a></li>
+									</ul>
+								</div>								
+							</div>
+						</div>
+					</div>
+				</div>	-->
+			</section>
+			<!-- End post-content Area -->
+			
+            <!-- start footer Area -->
+             <!-- start footer Area -->
+			 <footer class="footer-area section-gap">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-5 col-md-6 col-sm-6">
+                            <div class="single-footer-widget">
+                                <h4>Copyright ©2020 All rights reserved </h4>
+                                <p>
+                                    
+                                </p> 
+                                <p class="footer-text"></p>
+                            </div>
+                        </div>
+                        <!-- <div class="col-lg-5 col-md-6 col-sm-6">
+                            <div class="single-footer-widget">
+                                <h4>Newsletter</h4>
+                                <p>Stay updated with our latest trends</p>
+								<div class="" id="mc_embed_signup">
+									 <form target="_blank" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01" method="get">
+									  <div class="input-group">
+									    <input type="text" class="form-control" name="EMAIL" placeholder="Enter Email Address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Email Address '" required="" type="email">
+									    <div class="input-group-btn">
+									      <button class="btn btn-default" type="submit">
+									        <span class="lnr lnr-arrow-right"></span>
+									      </button>    
+									    </div>
+									    	<div class="info"></div>  
+									  </div>
+									</form> 
+								</div>
+                            </div>
+                        </div> -->
+                        <div class="col-lg-2 col-md-6 col-sm-6 social-widget">
+                            <div class="single-footer-widget">
+                                <h4>Follow Me</h4>
+                                <!-- <p>Let us be social</p> -->
+                                <div class="footer-social d-flex align-items-center">
+                                    <a href="https://www.facebook.com/georgiy.mayshmaz"><i class="fa fa-facebook"></i></a>
+                                    <a href="https://www.linkedin.com/in/g-mayshmaz/"><i class="fa fa-linkedin"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+            <!-- End footer Area -->		
+
+			<script src="js/vendor/jquery-2.2.4.min.js"></script>
+			<script src="js/popper.min.js"></script>
+			<script src="js/vendor/bootstrap.min.js"></script>			
+			<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script>			
+  			<script src="js/easing.min.js"></script>			
+			<script src="js/hoverIntent.js"></script>
+			<script src="js/superfish.min.js"></script>	
+			<script src="js/jquery.ajaxchimp.min.js"></script>
+			<script src="js/jquery.magnific-popup.min.js"></script>	
+    		<script src="js/jquery.tabs.min.js"></script>						
+			<script src="js/jquery.nice-select.min.js"></script>	
+            <script src="js/isotope.pkgd.min.js"></script>			
+			<script src="js/waypoints.min.js"></script>
+			<script src="js/jquery.counterup.min.js"></script>
+			<script src="js/simple-skillbar.js"></script>							
+			<script src="js/owl.carousel.min.js"></script>							
+			<script src="js/mail-script.js"></script>	
+			<script src="js/main.js"></script>	
+		</body>
+	</html>
