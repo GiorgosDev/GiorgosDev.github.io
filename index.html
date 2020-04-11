@@ -430,23 +430,22 @@
 						</div>
 						<div class="single-recent-blog col-lg-4 col-md-4">
 							<div class="thumb">
-								<a href="aws-autoscaling-1.html">
-									<img class="f-img img-fluid mx-auto" src="img/blog/2020-02/wire-mess.jpg" alt="">	
+								<a href="2020-04-10-aws-autoscaling-3.html">
+									<img class="f-img img-fluid mx-auto" src="img/blog/2020-04/ananas.jpg" alt="">	
 								</a>								
 							</div>
 							<div class="bottom d-flex justify-content-between align-items-center flex-wrap">
 								<div class="meta">
-									19th Feb
+									10th Apr
 									<!-- <span class="lnr lnr-heart"></span> 15
 									<span class="lnr lnr-bubble"></span> 04 -->
 								</div>
 							</div>							
-							<a href="aws-autoscaling-1.html">
-								<h4>Why you should worry if CPU utilization based autoscaling policy does not work for you</h4>
+							<a href="2020-04-10-aws-autoscaling-3.html">
+								<h4>Setting up custom metrics for autoscaling in AWS</h4>
 							</a>
 							<p>
-								Imagine you are in the process of migration of a legacy system from the data center to the cloud to make the system scalable.
-								If containerization is not an option you will try cloud-native autoscaling. If the basic policies and metrics are allowing you to scale in and out effectively - all good, but what if not? 
+								In many cases, custom metrics may be useful to make more ad-hoc configuration of autoscaling in AWS. For example, a custom metric can allow an autoscaling group to react more rapidly on spikes or to take into account the health state of hosts for concurrency based metrics. ActiveConnectionCount per Healthy Host metric may be helpful to scale in an application, that may stop to respond to health-checks if it is fully loaded. In general, this metric may be used both to rapidly react on spikes, regardless of application type and may be more effective than CPU based and RequestPerHost metrics. 
 							</p>
 						</div>												
 											
